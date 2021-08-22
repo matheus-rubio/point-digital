@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Rubik:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        html, body {
+  height: 100%;
+}
+
+
+body {
+	background: #c2e9fb;
+	background-image: linear-gradient(120deg, #00bbff 20%, #0008f7 100%);
+	color: black;
+	font-family: 'Rubik', sans-serif !important;
+}
+
+.container{
+
+	display: flex;
+	height: 100%;
+  align-items: center;
+	justify-content: center;
+}
+
+.form-signin{
+	background: white;
+	padding: 50px 80px;
+	min-height: 620px;
+}
+
+.logo{
+	width: 200px;
+}
+.one-line{
+	display: flex;
+}
+
+.forgot{
+	margin-left: auto;
+}
+
+@media only screen and (max-width: 576px) {
+  .form-signin {
+    min-width: 360px;
+    flex-wrap: wrap;
+    padding: 50px 0px;
+  }
+  
+}
+
+/* not active */
+.nav-pills .pill-1 .nav-link:not(.active) {
+    border: none;
+    color: #6c757d !important;
+    font-weight: 700;
+    width: 0%;
+    transition: width 0.4s;
+}
+
+.nav-pills .pill-2 .nav-link:not(.active) {
+    border: none;
+    color: #6c757d !important;
+    font-weight: 700;
+    width: 0%;
+    transition: width 0.4s;
+}
+
+
+/* active (faded) */
+.nav-pills .pill-1 .nav-link {
+    background: white !important;
+ 	  border-bottom: 2px solid #007bff;
+    color: #212529 !important;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.nav-pills .pill-2 .nav-link {
+    background: white !important;
+ 	  border-bottom: 2px solid #007bff;
+    color: #212529 !important;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.nav-pills .pill-1 .nav-link:hover {
+    color: #212529 !important;
+    width: 100%;
+    border-bottom: 2px solid #007bff;
+
+}
+.nav-pills .pill-2 .nav-link:hover {
+  	color: #212529 !important;
+    width: 100%;
+    border-bottom: 2px solid #007bff;
+}
+
+
+.nav{
+	padding: 0 15px !important;
+}
+
+    </style>
+</head>
+
+<body>
+  <div class="container">
+
+        <form class="form-signin rounded-sm shadow">
+            <div class="mx-auto" style="width:200px"><img class="mb-4 logo" src="{{ asset('assets/point-digital-logo.png') }}" alt="ff"></div>
+            <!-- Nav tabs -->
+            <ul class="nav nav-pills mb-4">
+                <li class="nav-item pill-1">
+                    <a class="nav-link active rounded-0" data-toggle="tab" href="#login">Login</a>
+                </li>
+                <li class="nav-item pill-2">
+                    <a class="nav-link  rounded-0" data-toggle="tab" href="#register">Registrar</a>
+                </li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+                
+                <!-- Tab1 -->
+                <div id="login" class="container tab-pane active">
+                    <label for="inputEmail" class="sr-only">Endereço de E-mail</label>
+                    <input type="email" id="inputEmail" class="form-control mb-4" placeholder="Endereço de E-mail" required autofocus>
+                    <label for="inputPassword" class="sr-only">Senha</label>
+                    <input type="password" id="inputPassword" class="form-control mb-4" placeholder="Senha" required>
+                    <div class="one-line mb-2">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" checked="checked" value="remember-me"> Lembrar e-mail
+                            </label>
+
+                        </div>
+                        <a class="forgot" href="#">Esqueceu sua senha?</a>
+                    </div>
+                    <button class="btn btn-lg btn-dark btn-block" type="submit">Login</button>
+                    <p class="mt-4 mb-0 text-muted small">Este site funciona com os navegadores Google Chrome, Mozilla Firefox e Safari </p>
+                </div>
+
+                <!-- Tab2 -->
+                <div id="register" class="container tab-pane fade">
+                    <label for="inputEmail" class="sr-only">Endereço de E-mail</label>
+                    <input type="email" id="inputEmail" class="form-control mb-4" placeholder="Endereço de E-mail" required autofocus>
+                    <label for="inputPassword" class="sr-only">Senha</label>
+                    <input type="password" id="inputPassword" class="form-control mb-4" placeholder="Senha" required>
+                    <label for="inputPassword" class="sr-only">Senha</label>
+                    <input type="password" id="inputPassword" class="form-control mb-4" placeholder="Repita a sua senha" required>
+                  
+                    <button class="btn btn-lg btn-dark btn-block" type="submit">Registrar</button>
+                    <p class="mt-4 mb-0 text-muted small">Este site funciona com os navegadores Google Chrome, Mozilla Firefox e Safari</p>
+                </div>            
+            </div>
+            
+        </form>
+   </div><!-- /.container -->
+   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>

@@ -18,6 +18,6 @@ class HomeController extends AbstractController
             'controller_name' => 'HomeController',
         ];
 
-        return $this->render('home/home.html.twig', $data);
+        return $this->render('views/home.html.twig', $data);
     }
 }

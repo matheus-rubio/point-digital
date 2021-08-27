@@ -113,56 +113,51 @@ body {
 <body>
   <div class="container">
 
-        <form class="form-signin rounded-sm shadow">
+        <form method="POST" id="formulario" class="form-signin rounded-sm shadow" action="/logar">
             <div class="mx-auto" style="width:200px"><img class="mb-4 logo" src="{{ asset('assets/point-digital-logo.png') }}" alt="ff"></div>
             <!-- Nav tabs -->
             <ul class="nav nav-pills mb-4">
                 <li class="nav-item pill-1">
                     <a class="nav-link active rounded-0" data-toggle="tab" href="#login">Login</a>
                 </li>
-                <li class="nav-item pill-2">
-                    <a class="nav-link  rounded-0" data-toggle="tab" href="#register">Registrar</a>
-                </li>
             </ul>
             <!-- Tab panes -->
             <div class="tab-content">
                 
-                <!-- Tab1 -->
-                <div id="login" class="container tab-pane active">
-                    <label for="inputEmail" class="sr-only">Endereço de E-mail</label>
-                    <input type="email" id="inputEmail" class="form-control mb-4" placeholder="Endereço de E-mail" required autofocus>
-                    <label for="inputPassword" class="sr-only">Senha</label>
-                    <input type="password" id="inputPassword" class="form-control mb-4" placeholder="Senha" required>
+
+                    <label for="inputLogin" class="sr-only">Endereço de E-mail</label>
+                    <input type="text" id="inputLogin" name="login" class="form-control mb-4" placeholder="Endereço de E-mail" required autofocus>
+                    <label for="inputPasswordLogin" class="sr-only">Senha</label>
+                    <input type="password" id="inputPassword" name="senha" class="form-control mb-4" placeholder="Senha" required>
                     <div class="one-line mb-2">
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" checked="checked" value="remember-me"> Lembrar e-mail
+                                <input type="checkbox" checked="checked" name="checkbox" value="remember-me"> Lembrar e-mail
                             </label>
 
                         </div>
-                        <a class="forgot" href="#">Esqueceu sua senha?</a>
                     </div>
-                    <button class="btn btn-lg btn-dark btn-block" type="submit">Login</button>
-                    <p class="mt-4 mb-0 text-muted small">Este site funciona com os navegadores Google Chrome, Mozilla Firefox e Safari </p>
-                </div>
+                    <button id="botaoLogin" class="btn btn-lg btn-dark btn-block" type="submit">Login</button>
+                    <p class="mt-4 mb-0 text-muted small">Este site funciona com o navegador Google Chrome </p>
+                
 
-                <!-- Tab2 -->
+                <!-- 
                 <div id="register" class="container tab-pane fade">
                     <label for="inputEmail" class="sr-only">Endereço de E-mail</label>
                     <input type="email" id="inputEmail" class="form-control mb-4" placeholder="Endereço de E-mail" required autofocus>
-                    <label for="inputPassword" class="sr-only">Senha</label>
+                    <label for="inputPasswordRegistro" class="sr-only">Senha</label>
                     <input type="password" id="inputPassword" class="form-control mb-4" placeholder="Senha" required>
-                    <label for="inputPassword" class="sr-only">Senha</label>
+                    <label for="inputPasswordConfirm" class="sr-only">Senha</label>
                     <input type="password" id="inputPassword" class="form-control mb-4" placeholder="Repita a sua senha" required>
                   
-                    <button class="btn btn-lg btn-dark btn-block" type="submit">Registrar</button>
+                    <button id="botaoRegistrar" class="btn btn-lg btn-dark btn-block" type="submit">Registrar</button>
                     <p class="mt-4 mb-0 text-muted small">Este site funciona com os navegadores Google Chrome, Mozilla Firefox e Safari</p>
-                </div>            
+                </div>  -->          
             </div>
             
-        </form>
+        <form>
    </div><!-- /.container -->
-   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>

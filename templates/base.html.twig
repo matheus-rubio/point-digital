@@ -43,11 +43,12 @@
                         <a class="nav-link" href="#">Pricing</a>
                     </li>
                     <!-- SE ESTIVER LOGADO MOSTRAR DROPDOWN ABAIXO-->
+                    {% if (usuario.nome) != null %}
                     <div class="dropdown">
                         <li class="nav-item" id="dropdown">
                             <a class="nav-link dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown"
                                 aria-expanded="false">
-                                NOME DO USUARIO
+                                {{usuario.nome}}
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 <li><a class="dropdown-item" href="#">Meus Pedidos</a></li>
@@ -57,10 +58,12 @@
                             </ul>
                         </li>
                     </div>
+                    {% else %}
                     <!-- SENÃO MOSTRAR BOTÃO DE LOGIN -->
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Login</a>
+                        <a class="nav-link" href="/login">Login</a>
                     </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>

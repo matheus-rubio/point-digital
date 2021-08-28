@@ -21,8 +21,7 @@ class LoginController extends AbstractController
     public function index(): Response
     {
         $data = [
-            'titulo' => 'login',
-            'controller_name' => 'LoginController',
+            'titulo' => 'Login',
         ];
 
         return $this->render('views/login.html.twig', $data);
@@ -68,5 +67,15 @@ class LoginController extends AbstractController
             $_SESSION['erro'] = "Usuário ou senha incorreto";
             return $this->redirect("/login");
         }
+    }
+
+    /**
+     * @Route("/logout", name="logout")
+     */
+    public function logout()
+    {
+        session_start();
+        session_destroy();
+        return $this->redirect("/home");
     }
 }

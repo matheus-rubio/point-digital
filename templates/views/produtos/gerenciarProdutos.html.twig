@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<style>
+    #headerTabela {
+        color:white;
+    }
+</style>
+
+<div class="container">
+    <br>
+    <table class="table">
+        <thead>
+          <tr id="headerTabela" class="bg-primary">
+            <th scope="col">Id</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Marca</th>
+            <th scope="col">Preço</th>
+            <th scope="col">Em Estoque</th>
+            {% if produtos %}
+            <th scope="col">Visualizar</th>
+            <th scope="col">Editar</th>
+            <th scope="col">Excluir</th>
+            {% endif %}
+          </tr>
+        </thead>
+        <tbody>
+        {% for produto in produtos %}
+            <tr>
+                <th scope="row">{{produto.id}}</th>
+                <td>{{produto.nome}}</td>
+                <td>{{produto.marca}}</td>
+                <td>{{produto.preco}}</td>
+                <td>{{produto.qnt_estoque}}</td>
+                <td>
+                    <i class="fa accessible-icon"></i>
+                    <a class="btn btn-sm btn-primary" href="visualizarProduto/{{produto.id}}">Visualizar</a>
+                </td>
+                <td>
+                    <i class="fa fa-pencil"></i>
+                    <a class="btn btn-sm btn-warning" href="editarProduto/{{produto.id}}">Editar</a>
+                </td>
+                <td>
+                    <i class="fa fa-pencil"></i>
+                    <a class="btn btn-sm btn-danger" href="excluirProduto/{{produto.id}}">Excluir</a>
+                </td>
+            </tr>
+        {% endfor %}
+        
+        </tbody>
+      </table>
+
+</div>
+
+{% endblock %}

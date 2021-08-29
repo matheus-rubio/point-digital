@@ -2,13 +2,44 @@
 
 {% block body %}
 <style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    .example-wrapper {
+        margin: 1em auto;
+        max-width: 800px;
+        width: 95%;
+        font: 18px/1.5 sans-serif;
+    }
+
+    .example-wrapper code {
+        background: #F5F5F5;
+        padding: 2px 6px;
+    }
 </style>
 
 <div class="example-wrapper">
     <h1>Seja bem vindo à Point Digital!</h1>
 
     Confira nossos produtos disponíveis no catálogo:
-</div>
-{% endblock %}
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mt-1">
+        {% for produto in produtos %}
+
+        <div class="col">
+            <div class="card shadow-sm d-flex justify-content-center">
+                <img src="{{ asset('assets/imagensProdutos/k10.jpeg') }}" alt="Foto do Produto">
+                <div class="card-body">
+                    <p class="card-text ms-2">{{produto.nome}}</p>
+                    <p class="card-text ms-2">Valor: R${{produto.preco}}</p>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <div class="btn-group">
+                            <a href="/realizarPedido/{{produto.id}}" type="button" class="btn btn-sm btn-success">
+                                <i class="bi bi-whatsapp"></i>
+                                Entre em contato conosco
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% endfor %}
+    </div>
+    {% endblock %}

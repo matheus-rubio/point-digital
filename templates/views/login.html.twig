@@ -4,10 +4,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
     <link href="https://fonts.googleapis.com/css?family=Rubik:400,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Toastr style -->
+    <link href="{{ asset('assets/css/toastr.min.css') }}" rel="stylesheet">
     <style>
         html, body {
             height: 100%;
@@ -107,7 +107,8 @@
         padding: 0 15px !important;
     }
 
-</style>
+    </style>
+
 </head>
 
 <body>
@@ -123,6 +124,7 @@
             </ul>
             <!-- Tab panes -->
             <div class="tab-content">
+                <div id="login" class="container tab-pane active">
                     <label for="inputLogin" class="sr-only">Endereço de E-mail</label>
                     <input type="text" id="inputLogin" name="login" class="form-control mb-4" placeholder="Endereço de E-mail" required autofocus>
                     <label for="inputPasswordLogin" class="sr-only">Senha</label>
@@ -136,11 +138,24 @@
                         </div>
                     </div>
                     <button id="botaoLogin" class="btn btn-lg btn-dark btn-block" type="submit">Login</button>
-                    <p class="mt-4 mb-0 text-muted small">Este site funciona com o navegador Google Chrome </p>       
-            </div>
+                    <a href="/registrar" class="btn btn-lg btn-primary btn-block" type="submit">Registre-se</a>
+                    <p class="mt-4 mb-0 text-muted small">Este site funciona com o navegador Google Chrome </p>
+                </div>    
+            </div>   
+            
+        </div>
         <form>
-   </div><!-- /.container -->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+   </div>
+   <!-- /.container -->
+</body>
+<!-- JQuery para o funcionamento do Toastr-->
+<script src="{{ asset('assets/js/jquery-3.1.1.min.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-</body>
+
+<!-- Toastr -->
+<script src="{{ asset('assets/js/toastr.min.js')}}"></script>
+<!-- Função para retornar mensagem de erro -->
+{{message()}}
+
+</html>

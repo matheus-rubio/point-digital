@@ -78,4 +78,32 @@ class LoginController extends AbstractController
         session_destroy();
         return $this->redirect("/home");
     }
+
+    /**
+     * @Route("/registrar", name="registrar")
+     */
+    public function registrar()
+    {
+        $data = [
+            'titulo' => 'cadastrar',
+        ];
+
+        return $this->render('views/registrar.html.twig', $data);
+    }
+
+    /**
+     * @Route("/cadastrarUsuario", name="cadastrarUsuario")
+     */
+    public function cadastrarUsuario(): void
+    {
+        $usuario = [
+            'nome'  => filter_var($_POST['nome'], FILTER_SANITIZE_STRING),
+            'login' => filter_var($_POST['login'], FILTER_SANITIZE_STRING),
+            'senha' => md5(filter_var($_POST['senha'], FILTER_SANITIZE_STRING)),
+        ];
+        
+        $usuarioCadastrado = $this->loginModel->cadastrarCliente($usuario);
+        print_r($usuarioCadastrado);
+        exit();
+    }
 }

@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<style>
+#detalhesProduto {
+    float: right;
+}
+
+</style>
+
+
+<div class="container" style="width: 450px;">
+    <br>
+    <div class="card">
+        <div id="detalhesPedido" class="d-flex justify-content-center">
+            <ul style="width: 350px;" class="list-group mt-4">
+                <li class="list-group-item active" aria-current="true">Numero da OS: {{ordem.id}}</li>
+                <li class="list-group-item">Data de início: {{ordem.data_inicio}}</li>
+                <li class="list-group-item">Data de Finalização: {{ordem.data_finalizacao}}</li>
+                <li class="list-group-item">Modelo do Aparelho: {{ordem.modelo_aparelho}}</li>
+                <li class="list-group-item">Status: {{ordem.status_servico}}</li>
+                <li class="list-group-item">Problema Identificado: {{ordem.problema_identificado}}</li>
+                <li class="list-group-item">Orçamento Inicial: R${{ordem.orcamento_inicial}}</li>
+                <li class="list-group-item">Valor Final: {{ordem.valor_final}}</li>
+                <br>
+                <div class="d-flex justify-content-center">
+                    
+                    <a href="/gerenciarOrdens" class="btn btn-sm btn-primary mb-3 me-3">
+                        <i class="bi bi-arrow-left"></i> 
+                        Voltar
+                    </a>
+                    <a href="/editarOS/{{ordem.id}}" class="btn btn-sm btn-warning mb-3">
+                        <i class="bi bi-pencil"></i> 
+                        Editar 
+                    </a>
+                </div>
+                
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}

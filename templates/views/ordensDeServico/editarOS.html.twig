@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block body %}
+
+    <div class="container d-flex justify-content-center col-md-12">
+        <div style="width: 400px; margin-top: 20px;" class="card">
+            <form method="POST" class="form-horizontal mx-4 my-2" method="POST" action="/atualizarOS/{{ordem.id}}">
+                <div class="form-group">
+                    <label for="id" class="control-label mt-1 mb-1">Data de Inicio</label>
+                        <div class="col-sm-12">
+                            <input disabled type="text" class="form-control"  value="{{ordem.data_inicio}}" required>
+                        </div>
+                </div>
+                <div class="form-group">
+                    <label for="data_finalizacao" class="control-label mt-1 mb-1">Data de Finalização</label>
+                        <div class="col-sm-12">
+                            <input {% if ordem.data_finalizacao != null %} type="datetime" {% else %} type="datetime-local" {% endif %} class="form-control" name="data_finalizacao"  value="{{ordem.data_finalizacao}}">
+                        </div>
+                </div>
+                <div class="form-group">
+                    <label for="modelo_aparelho" class="control-label mt-1 mb-1">Modelo do Aparelho</label>
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control" name="modelo_aparelho" value="{{ordem.modelo_aparelho}}" required>
+                        </div>
+                </div>
+                <div class="form-group">
+                    <label for="status_servico" class="control-label mt-1 mb-1">Status</label>
+                    <select name="status_servico" class="form-select" aria-label="Default select example" required>
+                        <option value="{{ordem.status_servico}}" selected>{{ordem.status_servico}}</option>
+                        {% for status in status %}
+                            {% if status != ordem.status_servico %}
+                                <option value="{{status}}">{{status}}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="problema_identificado" class="control-label mt-1 mb-1">Problema Identificado</label>
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control" name="problema_identificado" value="{{ordem.problema_identificado}}" required>
+                        </div>
+                </div>
+                <div class="form-group">
+                    <label for="orcamento_inicial" class="control-label mt-1 mb-1">Orçamento Inicial</label>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">R$</span>
+                            <input type="text" class="form-control" name="orcamento_inicial" value="{{ordem.orcamento_inicial}}" required>
+                        </div>
+                </div>
+                <div class="form-group">
+                    <label for="valor_final" class="control-label mt-1 mb-1">Valor Final</label>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">R$</span>
+                            <input type="text" class="form-control" name="valor_final" value="{{ordem.valor_final}}">
+                        </div>
+                </div>
+                <br>
+                <div class="d-flex justify-content-end">
+                    <a href="/gerenciarOrdens" class="btn btn-sm btn-primary mb-2 me-3">
+                        <i class="bi bi-arrow-left"></i> 
+                        Voltar
+                    </a>
+                    <button type="submit" class="btn btn-sm btn-success mb-2">
+                        <i class="bi bi-check"></i>
+                        Atualizar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}

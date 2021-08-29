@@ -1,0 +1,110 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<style>
+    #headerTabela {
+        color:white;
+    }
+</style>
+
+<div class="container">
+    <div>
+        <a style="margin: 10px 0 10px 0;" class="btn btn-success float-end" href="/novaOS">
+            <i class="bi bi-plus"></i>
+            Nova OS
+        </a>
+    </div>
+    <table class="table">
+        <thead>
+          <tr id="headerTabela" class="bg-primary">
+            <th scope="col">OS</th>
+            <th scope="col">Data de ínicio</th>
+            <th scope="col">Data de finalização</th>
+            <th scope="col">Status</th>
+            <th scope="col">Problema Identificado</th>
+            {% if ordens %}
+            <th scope="col"></th>
+            {% endif %}
+          </tr>
+        </thead>
+        <tbody>
+        {% for ordem in ordens %}
+            <tr>
+                <th scope="row">{{ordem.id}}</th>
+                <td>{{ordem.data_inicio}}</td>
+                <td>{{ordem.data_finalizacao}}</td>
+                <td>{{ordem.status_servico}}</td>
+                <td>{{ordem.problema_identificado}}</td>
+                <td>
+                    <a class="btn btn-sm btn-primary" href="visualizarOS/{{ordem.id}}">
+                        <i class="bi bi-eye-fill"></i>
+                        Visualizar
+                    </a>
+                    <i class="fa fa-pencil"></i>
+                    <a class="btn btn-sm btn-warning" href="editarOS/{{ordem.id}}">
+                        <i class="bi bi-pencil-fill"></i>
+                        Editar
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        
+        </tbody>
+      </table>
+      
+
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+<script>
+    $(document).ready(function(){
+        $('.botaoExcluirPedido').click(function () {
+            var idPedido   = $(this).attr('idPedido');
+            swal({
+                title: "Você tem certeza?",
+                text: "Você não poderá recuperar o pedido nº: " + '\n' + idPedido,
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Sim, deletar!",
+                cancelButtonText: "Não, cancelar por favor!",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        $.ajax({
+                            url: '/excluirPedido',
+                            method: 'POST',
+                            data: { idPedido: idPedido },
+                            success: function (data) {
+                                var data = Object.values(data);
+                                data = data[1050];
+                                if (data == 1) {
+                                    swal("Deletado!", "O pedido foi removido com sucesso", "success");
+
+                                    $('.confirm').click(function () {
+                                        window.location.reload();
+                                    });
+
+                                } else {
+                                    swal("Cancelado", "Erro ao remover o pedido!", "error");
+                                    $('.confirm').click(function () {
+                                        window.location.reload();
+                                    });
+                                }
+                            }
+                        });
+                    } else {
+                        swal("Cancelado", "Operação Cancelada!", "error");
+                    }
+                });
+        });
+        
+    });
+</script>
+
+{% endblock %}

@@ -32,7 +32,7 @@ class TwigFunctions extends AbstractExtension {
 					showMethod: 'slideDown',
 					timeOut: 4000
 				};
-				toastr.error(\"{$_SESSION['message']}\");
+				toastr.{$_SESSION['message'][0]}(\"{$_SESSION['message'][1]}\");
 			});</script>";
             unset($_SESSION['message']);
         }

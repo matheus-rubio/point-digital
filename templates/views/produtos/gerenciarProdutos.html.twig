@@ -8,7 +8,13 @@
 </style>
 
 <div class="container">
-    <br>
+    <div>
+        <a style="margin: 10px 0 10px 0;" class="btn btn-success float-end" href="/novoProduto">
+            <i class="bi bi-plus"></i>
+            Novo Produto
+        </a>
+    </div>
+
     <table class="table">
         <thead>
           <tr id="headerTabela" class="bg-primary">
@@ -33,22 +39,31 @@
                 <td>{{produto.preco}}</td>
                 <td>{{produto.qnt_estoque}}</td>
                 <td>
-                    <i class="fa accessible-icon"></i>
-                    <a class="btn btn-sm btn-primary" href="visualizarProduto/{{produto.id}}">Visualizar</a>
+                    <a class="btn btn-sm btn-primary" href="visualizarProduto/{{produto.id}}">
+                        <i class="bi bi-eye-fill"></i>
+                        Visualizar
+                    </a>
                 </td>
                 <td>
                     <i class="fa fa-pencil"></i>
-                    <a class="btn btn-sm btn-warning" href="editarProduto/{{produto.id}}">Editar</a>
+                    <a class="btn btn-sm btn-warning" href="editarProduto/{{produto.id}}">
+                        <i class="bi bi-pencil-fill"></i>
+                        Editar
+                    </a>
                 </td>
                 <td>
                     <i class="fa fa-pencil"></i>
-                    <a class="btn btn-sm btn-danger" href="excluirProduto/{{produto.id}}">Excluir</a>
+                    <a class="btn btn-sm btn-danger" href="excluirProduto/{{produto.id}}">
+                        <i class="bi bi-trash-fill"></i>
+                        Excluir
+                    </a>
                 </td>
             </tr>
         {% endfor %}
         
         </tbody>
       </table>
+      
 
 </div>
 

@@ -1,0 +1,112 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<style>
+    #headerTabela {
+        color:white;
+    }
+</style>
+
+<div class="container">
+    <br>
+
+    <table class="table">
+        <thead>
+          <tr id="headerTabela" class="bg-primary">
+            <th scope="col">Id Pedido</th>
+            <th scope="col">Id Cliente</th>
+            <th scope="col">Produto</th>
+            <th scope="col">Data do Pedido</th>
+            <th scope="col">Valor Total</th>
+            <th scope="col">Status</th>
+            {% if pedidos %}
+            <th scope="col"></th>
+            {% endif %}
+          </tr>
+        </thead>
+        <tbody>
+        {% for pedido in pedidos %}
+            <tr>
+                <th scope="row">{{pedido.id}}</th>
+                <td>{{pedido.id_cliente}}</td>
+                <td>
+                    <a class="btn btn-sm btn-dark" href="visualizarProduto/{{pedido.id_produto}}">{{pedido.nome_produto}}</a>
+                </td>
+                <td>{{pedido.data_pedido}}</td>
+                <td>{{pedido.valor_total}}</td>
+                <td class="btn btn-sm">
+                    {{pedido.status}}
+                </td>
+                <td>
+                    <a class="btn btn-sm btn-primary me-1" href="visualizarPedido/{{pedido.id}}">
+                        <i class="bi bi-eye-fill"></i>
+                        Visualizar
+                    </a>
+                    <i class="fa fa-pencil"></i>
+                    <a class="btn btn-sm btn-warning" href="editarPedido/{{pedido.id}}">
+                        <i class="bi bi-pencil-fill"></i>
+                        Editar
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        
+        </tbody>
+      </table>
+      
+
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+<script>
+    $(document).ready(function(){
+        $('.botaoExcluirPedido').click(function () {
+            var idPedido   = $(this).attr('idPedido');
+            swal({
+                title: "Você tem certeza?",
+                text: "Você não poderá recuperar o pedido nº: " + '\n' + idPedido,
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Sim, deletar!",
+                cancelButtonText: "Não, cancelar por favor!",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        $.ajax({
+                            url: '/excluirPedido',
+                            method: 'POST',
+                            data: { idPedido: idPedido },
+                            success: function (data) {
+                                var data = Object.values(data);
+                                data = data[1050];
+                                if (data == 1) {
+                                    swal("Deletado!", "O pedido foi removido com sucesso", "success");
+
+                                    $('.confirm').click(function () {
+                                        window.location.reload();
+                                    });
+
+                                } else {
+                                    swal("Cancelado", "Erro ao remover o pedido!", "error");
+                                    $('.confirm').click(function () {
+                                        window.location.reload();
+                                    });
+                                }
+                            }
+                        });
+                    } else {
+                        swal("Cancelado", "Operação Cancelada!", "error");
+                    }
+                });
+        });
+        
+    });
+</script>
+
+{% endblock %}

@@ -24,9 +24,9 @@
             <th scope="col">Preço</th>
             <th scope="col">Em Estoque</th>
             {% if produtos %}
-            <th scope="col">Visualizar</th>
-            <th scope="col">Editar</th>
-            <th scope="col">Excluir</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
             {% endif %}
           </tr>
         </thead>
@@ -53,7 +53,7 @@
                 </td>
                 <td>
                     <i class="fa fa-pencil"></i>
-                    <a class="btn btn-sm btn-danger" href="excluirProduto/{{produto.id}}">
+                    <a idProduto="{{produto.id}}" nomeProduto="{{produto.nome}}" class="btn btn-sm btn-danger botaoExcluirProduto">
                         <i class="bi bi-trash-fill"></i>
                         Excluir
                     </a>
@@ -66,5 +66,58 @@
       
 
 </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+<script>
+    $(document).ready(function(){
+        $('.botaoExcluirProduto').click(function () {
+            var idProduto   = $(this).attr('idProduto');
+            var nomeProduto = $(this).attr('nomeProduto');
+            swal({
+                title: "Você tem certeza?",
+                text: "Você não poderá recuperar o produto: " + '\n' + nomeProduto,
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Sim, deletar!",
+                cancelButtonText: "Não, cancelar por favor!",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        $.ajax({
+                            url: '/excluirProduto',
+                            method: 'POST',
+                            data: { idProduto: idProduto },
+                            success: function (data) {
+                                var data = Object.values(data);
+                                data = data[1050];
+                                if (data == 1) {
+                                    swal("Deletado!", "O produto foi removido com sucesso", "success");
+
+                                    $('.confirm').click(function () {
+                                        window.location.reload();
+                                    });
+
+                                } else {
+                                    swal("Cancelado", "Erro ao remover o produto!", "error");
+                                    $('.confirm').click(function () {
+                                        window.location.reload();
+                                    });
+                                }
+                            }
+                        });
+                    } else {
+                        swal("Cancelado", "Operação Cancelada!", "error");
+                    }
+                });
+        });
+        
+    });
+</script>
 
 {% endblock %}

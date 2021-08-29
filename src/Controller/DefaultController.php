@@ -60,6 +60,17 @@ class DefaultController extends AbstractController
 
                 $produtos = $this->produtosModel->getTodosProdutos();
 
+                for ($i=0; $i < sizeof($produtos); $i++) {
+
+                    // SE FOR NÚMERO DECIMAL E TIVER SOMENTE UM NUMERO DEPOIS DA VIRGULA
+                    if( sizeof(explode('.', $produtos[$i]['preco'])) > 1 && strlen(explode('.', $produtos[$i]['preco'])[1]) == 1){
+                        // ADICIONA UM 0 COMO SEGUNDO NUMERO DEPOIS DA VIRGULA
+                        $produtos[$i]['preco'] = $produtos[$i]['preco']."0";
+                    }
+                     
+                    $produtos[$i]['preco'] = str_replace('.', ',', $produtos[$i]['preco']);
+                }                
+
                 $data = [
                     'titulo' => 'Home',
                     'usuario' => $this->usuario,
@@ -85,6 +96,15 @@ class DefaultController extends AbstractController
     public function visualizarProduto(int $idProduto)
     {
         $produto = $this->produtosModel->getProdutoById($idProduto);
+        
+        if(strlen(explode('.', $produto['preco'])[1]) == 1){
+            $produto['preco'] = $produto['preco']."0";
+        }
+
+        dump($produto['preco']);
+
+        $produto['preco'] = str_replace('.', ',', $produto['preco']);
+
         $data = [
             'titulo'    => 'Produto',
             'produto'   => $produto,
@@ -115,9 +135,10 @@ class DefaultController extends AbstractController
         $produto = [
             'nome' => filter_var($_POST['nomeProduto'], FILTER_SANITIZE_STRING),
             'marca' => filter_var($_POST['marcaProduto'], FILTER_SANITIZE_STRING),
-            'preco' => filter_var($_POST['valorProduto'], FILTER_SANITIZE_STRING),
+            'preco' => str_replace(',', '.', filter_var($_POST['valorProduto'], FILTER_SANITIZE_STRING)),
             'qnt_estoque' => filter_var($_POST['quantidadeProduto'], FILTER_SANITIZE_NUMBER_INT),
         ];
+
         $foiInserido = $this->produtosModel->insertProduto($produto);
 
         if ($foiInserido){
@@ -139,4 +160,67 @@ class DefaultController extends AbstractController
             return $this->redirect("/gerenciarProdutos");
         }
     }
+
+    /**
+     * @Route("/editarProduto/{idProduto}", name="editarProduto", methods="GET")
+     */
+    public function editarProduto($idProduto)
+    {
+        $produto = $this->produtosModel->getProdutoById($idProduto);
+
+        $data = [
+            'titulo'    => 'Produto',
+            'idProduto' => $idProduto,
+            'produto'   => $produto,
+            'usuario'   => $this->usuario,
+        ];
+
+        return $this->render('/views/produtos/editarProduto.html.twig', $data);
+    }
+
+    /**
+     * @Route("/atualizarProduto/{idProduto}", name="atualizarProduto", methods="POST")
+     */
+    public function atualizarProduto($idProduto)
+    {
+        $produto = [
+            'nome' => filter_var($_POST['nomeProduto'], FILTER_SANITIZE_STRING),
+            'marca' => filter_var($_POST['marcaProduto'], FILTER_SANITIZE_STRING),
+            'preco' => filter_var($_POST['valorProduto'], FILTER_SANITIZE_STRING),
+            'qnt_estoque' => filter_var($_POST['quantidadeProduto'], FILTER_SANITIZE_NUMBER_INT),
+        ];
+
+        $produtoFoiAtualizado = $this->produtosModel->updateProduto($produto, $idProduto);
+
+        if ($produtoFoiAtualizado){
+
+            $_SESSION['message'] = [
+                0 => 'success',
+                1 => "Produto atualizado com sucesso!",
+            ];
+
+            return $this->redirect("/gerenciarProdutos");
+
+        } else {
+
+            $_SESSION['message'] = [
+                0 => 'error',
+                1 => "Erro ao atualizar o produto!",
+            ];
+
+            return $this->redirect("/gerenciarProdutos");
+        }
+    }
+
+    /**
+     * @Route("/excluirProduto", name="excluirProduto")
+     */
+    public function excluirProduto(): void
+    {
+        $idProduto = $_POST['idProduto'];
+
+        print_r($this->produtosModel->deleteProduto($idProduto));
+        exit();
+    }
+
 }

@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<style>
+#detalhesProduto {
+    float: right;
+}
+
+</style>
+
+
+<div class="container">
+    <br>
+    <div class="card">
+        <div id="detalhesProduto" class="col-md-12">
+            <img class="col-md-6" src="{{ asset('assets/imagensProdutos/k10.jpeg') }}" alt="">
+            <ul style="margin: 20px 40px 0 0;" class="list-group float-end col-md-5">
+                <li class="list-group-item active" aria-current="true">{{produto.nome}}</li>
+                <li class="list-group-item">Marca: {{produto.marca}}</li>
+                <li class="list-group-item">Valor: R${{produto.preco}}</li>
+                <br>
+                <div class="d-flex justify-content-center">
+                    
+                    <a class="btn btn-sm btn-success col-md-5 ">
+                        <i class="bi bi-cart4"></i> 
+                        COMPRAR 
+                    </a>
+                </div>
+                
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}

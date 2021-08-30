@@ -18,6 +18,7 @@ class ProdutosController extends AbstractController
         }
         $this->produtosModel = new ProdutosModel;
         $this->usuario = [
+            'id' => isset($_SESSION['id']) ? $_SESSION['id'] : null,
             'nome' => isset($_SESSION['nome']) ? $_SESSION['nome'] : null,
             'isAdministrador' => isset($_SESSION['isAdministrador']) ? $_SESSION['isAdministrador'] : null,
         ];

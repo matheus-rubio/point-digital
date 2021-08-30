@@ -21,11 +21,35 @@ class PedidosModel extends Model
                     status 
                     FROM public.tb_pedidos as pedido
                     INNER JOIN public.tb_produtos as produto ON pedido.id_produto = produto.id
-                    ORDER BY id";
+                    ORDER BY pedido.id";
             $select = $this->pdo->prepare($sql);
             $select->execute();
             return $select->fetchAll(PDO::FETCH_ASSOC);
             exit();
+        } catch (\Throwable $th) {
+            echo $th->getMessage();
+        }
+    }
+
+    public function getPedidosCliente($idCliente)
+    {
+        try {
+            $sql = "SELECT 
+                    pedido.id, 
+                    pedido.id_cliente, 
+                    pedido.id_produto, 
+                    to_char(pedido.data_pedido, 'dd/MM/YYYY HH24:MM') as data_pedido, 
+                    pedido.valor_total,
+                    produto.nome as nome_produto, 
+                    status 
+                    FROM public.tb_pedidos as pedido
+                    INNER JOIN public.tb_produtos as produto ON pedido.id_produto = produto.id
+                    WHERE pedido.id_cliente = ?
+                    ORDER BY pedido.id";
+            $select = $this->pdo->prepare($sql);
+            $select->bindValue(1, $idCliente);
+            $select->execute();
+            return $select->fetchAll(PDO::FETCH_ASSOC);
         } catch (\Throwable $th) {
             echo $th->getMessage();
         }

@@ -19,6 +19,7 @@ class PedidosController extends AbstractController
         }
         $this->pedidosModel = new PedidosModel;
         $this->usuario = [
+            'id' => isset($_SESSION['id']) ? $_SESSION['id'] : null,
             'nome' => isset($_SESSION['nome']) ? $_SESSION['nome'] : null,
             'isAdministrador' => isset($_SESSION['isAdministrador']) ? $_SESSION['isAdministrador'] : null,
         ];
@@ -217,6 +218,59 @@ class PedidosController extends AbstractController
 
         print_r($this->pedidosModel->deleteProduto($idPedido));
         exit();
+    }
+
+    /**
+     * @Route("/meusPedidos", name="meusPedidos")
+     */
+    public function meusPedidos()
+    {
+        // SE ESTIVER LOGADO VERIFICA SE O USUÁRIO É ADMINISTRADOR
+        if (isset($_SESSION['isAdministrador'])) {
+
+            if ($_SESSION['isAdministrador'] == true) {
+
+                // SE NÃO FOR ADMINISTRADOR NÃO PERMITE ACESSAR A PAGINA
+                $_SESSION['message'] = [
+                    0 => 'error',
+                    1 => "Você não tem permissão para acessar esta página",
+                ];
+                return $this->redirect("/home");
+
+            } else {
+
+                $pedidos = $this->pedidosModel->getPedidosCliente($this->usuario['id']);   
+                
+                for ($i=0; $i < sizeof($pedidos); $i++) {
+
+                    // SE FOR NÚMERO INTEIRO ADICIONA DOIS ZEROS DEPOIS DA VIRGULA
+                    if(sizeof(explode('.', $pedidos[$i]['valor_total'])) == 1){
+                        $pedidos[$i]['valor_total'] = $pedidos[$i]['valor_total'].",00";
+                    // SENÃO VERIFICA SE POSSUI UM NUMERO SÓ DEPOIS DA VIRGULA E ADICIONA UM ZERO  
+                    } else if(strlen(explode('.', $pedidos[$i]['valor_total'])[1]) == 1){
+                        $pedidos[$i]['valor_total'] = $pedidos[$i]['valor_total']."0";
+                    }
+                     
+                    $pedidos[$i]['valor_total'] = str_replace('.', ',', $pedidos[$i]['valor_total']);
+                }    
+
+                $data = [
+                    'titulo' => 'Gerenciar Pedidos',
+                    'usuario' => $this->usuario,
+                    'pedidos' => $pedidos,
+                ];
+
+                return $this->render('/views/pedidos/meusPedidos.html.twig', $data);
+            }
+        } else {
+            // SE NÃO ESTIVAR LOGADO RETORNA PRA PAGINA INICIAL E APRESENTA UMA MENSAGEM DE ERRO
+            $_SESSION['message'] = [
+                0 => 'error',
+                1 => "Você precisa estar logado para acessar a página solicitada.",
+            ];
+            return $this->redirect("/home");
+        }
+        
     }
     
 }

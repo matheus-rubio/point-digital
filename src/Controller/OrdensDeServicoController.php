@@ -20,6 +20,7 @@ class OrdensDeServicoController extends AbstractController
         }
         $this->ordensDeServicoModel = new OrdensDeServicoModel;
         $this->usuario = [
+            'id' => isset($_SESSION['id']) ? $_SESSION['id'] : null,
             'nome' => isset($_SESSION['nome']) ? $_SESSION['nome'] : null,
             'isAdministrador' => isset($_SESSION['isAdministrador']) ? $_SESSION['isAdministrador'] : null,
         ];
@@ -77,6 +78,70 @@ class OrdensDeServicoController extends AbstractController
                 ];
 
                 return $this->render('/views/ordensDeServico/gerenciarOrdens.html.twig', $data);
+            }
+        } else {
+            // SE NÃO ESTIVAR LOGADO RETORNA PRA PAGINA INICIAL E APRESENTA UMA MENSAGEM DE ERRO
+            $_SESSION['message'] = [
+                0 => 'error',
+                1 => "Você precisa estar logado para acessar a página solicitada.",
+            ];
+            return $this->redirect("/home");
+        }
+        
+    }
+
+    /**
+     * @Route("/minhasOrdens", name="minhasOrdens")
+     */
+    public function minhasOrdens()
+    {
+        // SE ESTIVER LOGADO VERIFICA SE O USUÁRIO É ADMINISTRADOR
+        if (isset($_SESSION['isAdministrador'])) {
+
+            if ($_SESSION['isAdministrador'] == true) {
+
+                // SE NÃO FOR ADMINISTRADOR NÃO PERMITE ACESSAR A PAGINA
+                $_SESSION['message'] = [
+                    0 => 'error',
+                    1 => "Você não tem permissão para acessar esta página",
+                ];
+                return $this->redirect("/home");
+
+            } else {
+
+                $ordens = $this->ordensDeServicoModel->getOrdensCliente($this->usuario['id']);
+                
+                for ($i=0; $i < sizeof($ordens); $i++) {
+                    ////////////// FORMATAÇÃO DO VALOR ORCAMENTO INICIAL ///////////////////
+                    // SE FOR NÚMERO INTEIRO ADICIONA DOIS ZEROS DEPOIS DA VIRGULA
+                    if(sizeof(explode('.', $ordens[$i]['orcamento_inicial'])) == 1){
+                        $ordens[$i]['orcamento_inicial'] = $ordens[$i]['orcamento_inicial'].",00";
+                    // SENÃO VERIFICA SE POSSUI UM NUMERO SÓ DEPOIS DA VIRGULA E ADICIONA UM ZERO  
+                    } else if(strlen(explode('.', $ordens[$i]['orcamento_inicial'])[1]) == 1){
+                        $ordens[$i]['orcamento_inicial'] = $ordens[$i]['orcamento_inicial']."0";
+                    }
+                     
+                    $ordens[$i]['orcamento_inicial'] = str_replace('.', ',', $ordens[$i]['orcamento_inicial']);
+
+                    ////////////// FORMATAÇÃO DO VALOR FINAL ///////////////////
+                    // SE FOR NÚMERO INTEIRO ADICIONA DOIS ZEROS DEPOIS DA VIRGULA
+                    if(sizeof(explode('.', $ordens[$i]['valor_final'])) == 1){
+                        $ordens[$i]['valor_final'] = $ordens[$i]['valor_final'].",00";
+                    // SENÃO VERIFICA SE POSSUI UM NUMERO SÓ DEPOIS DA VIRGULA E ADICIONA UM ZERO  
+                    } else if(strlen(explode('.', $ordens[$i]['valor_final'])[1]) == 1){
+                        $ordens[$i]['valor_final'] = $ordens[$i]['valor_final']."0";
+                    }
+                     
+                    $ordens[$i]['valor_final'] = str_replace('.', ',', $ordens[$i]['valor_final']);
+                }    
+
+                $data = [
+                    'titulo' => "Gerenciar OS's",
+                    'usuario' => $this->usuario,
+                    'ordens' => $ordens,
+                ];
+
+                return $this->render('/views/ordensDeServico/minhasOrdens.html.twig', $data);
             }
         } else {
             // SE NÃO ESTIVAR LOGADO RETORNA PRA PAGINA INICIAL E APRESENTA UMA MENSAGEM DE ERRO

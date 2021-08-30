@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<style>
+    #headerTabela {
+        color: white;
+    }
+</style>
+
+<div class="container">
+    <br>
+
+    {% if pedidos %}
+    <table class="table">
+        <thead>
+            <tr id="headerTabela" class="bg-primary">
+                <th scope="col">Id Pedido</th>
+                <th scope="col">Id Cliente</th>
+                <th scope="col">Produto</th>
+                <th scope="col">Data do Pedido</th>
+                <th scope="col">Valor Total</th>
+                <th scope="col">Status</th>
+                <th scope="col"></th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for pedido in pedidos %}
+            <tr>
+                <th scope="row">{{pedido.id}}</th>
+                <td>{{pedido.id_cliente}}</td>
+                <td>
+                    <a class="btn btn-sm btn-dark"
+                        href="visualizarProduto/{{pedido.id_produto}}">{{pedido.nome_produto}}</a>
+                </td>
+                <td>{{pedido.data_pedido}}</td>
+                <td>{{pedido.valor_total}}</td>
+                <td class="btn btn-sm">
+                    {{pedido.status}}
+                </td>
+                <td>
+                    <a class="btn btn-sm btn-primary me-1" href="visualizarPedido/{{pedido.id}}">
+                        <i class="bi bi-eye-fill"></i>
+                        Visualizar
+                    </a>
+
+                </td>
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+    {% else %}
+
+    {% endif %}
+
+
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+{% if pedidos == null %}
+<script>
+    swal("Você ainda não tem nenhum pedido cadastrado!", "Clique para ser redirecionado...", "info");
+                            $('.confirm').click(function () {
+                                window.location.replace("/home");
+                            });
+</script>
+{% endif %}
+
+{% endblock %}

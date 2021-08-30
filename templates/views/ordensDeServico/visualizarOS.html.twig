@@ -25,14 +25,16 @@
                 <br>
                 <div class="d-flex justify-content-center">
                     
-                    <a href="/gerenciarOrdens" class="btn btn-sm btn-primary mb-3 me-3">
+                    <a {% if isAdministrador() %} href="/gerenciarOrdens" {% else %} href="/minhasOrdens" {% endif %} class="btn btn-sm btn-primary mb-3 me-3">
                         <i class="bi bi-arrow-left"></i> 
                         Voltar
                     </a>
+                    {% if isAdministrador() %}
                     <a href="/editarOS/{{ordem.id}}" class="btn btn-sm btn-warning mb-3">
                         <i class="bi bi-pencil"></i> 
                         Editar 
                     </a>
+                    {% endif %}
                 </div>
                 
         </div>

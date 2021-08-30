@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<style>
+    #headerTabela {
+        color: white;
+    }
+</style>
+
+<div class="container">
+    {% if ordens %}
+    <table class="table mt-3">
+        <thead>
+            <tr id="headerTabela" class="bg-primary">
+                <th scope="col">OS</th>
+                <th scope="col">Data de ínicio</th>
+                <th scope="col">Data de finalização</th>
+                <th scope="col">Status</th>
+                <th scope="col">Problema Identificado</th>
+                {% if ordens %}
+                <th scope="col"></th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for ordem in ordens %}
+            <tr>
+                <th scope="row">{{ordem.id}}</th>
+                <td>{{ordem.data_inicio}}</td>
+                <td>{{ordem.data_finalizacao}}</td>
+                <td>{{ordem.status_servico}}</td>
+                <td>{{ordem.problema_identificado}}</td>
+                <td>
+                    <a class="btn btn-sm btn-primary" href="visualizarOS/{{ordem.id}}">
+                        <i class="bi bi-eye-fill"></i>
+                        Visualizar
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+    {% endif %}
+
+
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+{% if ordens == null %}
+<script>
+    swal("Você ainda não tem nenhuma OS cadastrada!", "Clique para ser redirecionado...", "info");
+    $('.confirm').click(function () {
+        window.location.replace("/home");
+    });
+</script>
+{% endif %}
+
+{% endblock %}

@@ -31,6 +31,31 @@ class OrdensDeServicoModel extends Model
         }
     }
 
+    public function getOrdensCliente($idCliente)
+    {
+        try {
+            $sql = "SELECT 
+                    id,
+                    id_cliente,
+                    to_char(data_inicio, 'dd/MM/YYYY HH24:MM') as data_inicio,
+                    to_char(data_finalizacao, 'dd/MM/YYYY HH24:MM') as data_finalizacao,
+                    modelo_aparelho,
+                    status_servico,
+                    problema_identificado,
+                    orcamento_inicial,
+                    valor_final
+                    FROM public.tb_ordens_de_servico
+                    WHERE id_cliente = ?
+                    ORDER BY id";
+            $select = $this->pdo->prepare($sql);
+            $select->bindValue(1, $idCliente);
+            $select->execute();
+            return $select->fetchAll(PDO::FETCH_ASSOC);
+        } catch (\Throwable $th) {
+            echo $th->getMessage();
+        }
+    }
+
     public function getOSByID($idOS)
     {
         try {

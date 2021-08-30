@@ -45,6 +45,7 @@ class LoginController extends AbstractController
             if ( $usuarioEncontrado != null){
                 $session = $this->get('session');
                 $session->set('isAdministrador', false);
+                $_SESSION['id'] = $usuarioEncontrado['id'];
                 $_SESSION['isAdministrador'] = false;
                 $_SESSION['nome'] = $usuarioEncontrado['nome'];
                 return $this->redirect("/home");

@@ -17,6 +17,7 @@ class DefaultController extends AbstractController
             session_start();
         }
         $this->usuario = [
+            'id' => isset($_SESSION['id']) ? $_SESSION['id'] : null,
             'nome' => isset($_SESSION['nome']) ? $_SESSION['nome'] : null,
             'isAdministrador' => isset($_SESSION['isAdministrador']) ? $_SESSION['isAdministrador'] : null,
         ];

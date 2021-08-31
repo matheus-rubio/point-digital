@@ -14,24 +14,23 @@
     <div class="card">
         <div id="detalhesPedido" class="d-flex justify-content-center">
             <ul style="width: 300px;" class="list-group mt-4">
-                <li class="list-group-item active" aria-current="true">Numero do Pedido: {{pedido.id}}</li>
-                <li class="list-group-item">Data do Pedido: {{pedido.data_pedido}}</li>
-                <li class="list-group-item">Produto: {{pedido.nome_produto}}</li>
+                <li class="list-group-item active" style="text-align: center;" aria-current="true">Confirme sua compra!</li>
+                <li class="list-group-item">Produto: {{produto.nome}}</li>
                 <li class="list-group-item">Valor Total: R${{pedido.valor_total}}</li>
-                <li class="list-group-item">Status: {{pedido.status}}</li>
+                <li class="list-group-item">Endereço: 
+                    <br>Rua Padre Matias, 71<br> Apt 403<br> CEP 36035-140 <br> Morro da Glória <br> Juiz de Fora - MG
+                </li>
                 <br>
                 <div class="d-flex justify-content-center">
                     
-                    <a {% if isAdministrador() %} href="/gerenciarPedidos" {% else %} href="/meusPedidos" {% endif %} class="btn btn-sm btn-primary mb-3 me-3">
+                    <a href="/visualizarProduto/{{produto.id}}" class="btn btn-sm btn-primary mb-3 me-3">
                         <i class="bi bi-arrow-left"></i> 
                         Voltar
                     </a>
-                    {% if isAdministrador() %}
-                    <a href="/editarPedido/{{pedido.id}}" class="btn btn-sm btn-warning mb-3">
-                        <i class="bi bi-pencil"></i> 
-                        Editar 
+                    <a href="/realizarPedido/{{produto.id}}" class="btn btn-sm btn-success mb-3">
+                        <i class="bi bi-cart"></i> 
+                        Efetuar Compra 
                     </a>
-                    {% endif %}
                 </div>
                 
         </div>

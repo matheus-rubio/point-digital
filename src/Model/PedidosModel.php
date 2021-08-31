@@ -82,8 +82,8 @@ class PedidosModel extends Model
     {
         try {
             $sql = "INSERT INTO public.tb_pedidos
-                    (id_cliente, id_produto, data_pedido, valor_total, status)
-                    VALUES(:id_cliente, :id_produto, :data_pedido, :valor_total, :status);
+                    (id_cliente, id_produto, valor_total, status, codigo_de_barras)
+                    VALUES(:id_cliente, :id_produto, :valor_total, :status, :codigo_de_barras);
             ";
             $insert = $this->pdo->prepare($sql);
             foreach ($pedido as $key => $value) {

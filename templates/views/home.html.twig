@@ -13,6 +13,15 @@
         background: #F5F5F5;
         padding: 2px 6px;
     }
+
+    .imagemProduto {
+        width: 250px;
+        height: 280px;
+    }
+
+    .card {
+        width: 260px;
+    }
 </style>
 
 <div class="example-wrapper">
@@ -24,15 +33,29 @@
 
         <div class="col">
             <div class="card shadow-sm d-flex justify-content-center">
-                <img src="{{ asset('assets/imagensProdutos/k10.jpeg') }}" alt="Foto do Produto">
+                {% if produto.nome == 'J7 PRIME' %}
+                <img class="imagemProduto" src="{{ asset('assets/imagensProdutos/J7 PRIME.jpeg') }}" alt="Foto do Produto">
+                {% endif %}
+                {% if produto.nome == 'LG K10' %}
+                <img class="imagemProduto" src="{{ asset('assets/imagensProdutos/LG K10.jpeg') }}" alt="Foto do Produto">
+                {% endif %}
+                {% if produto.nome == 'Redmi Note 8' %}
+                <img class="imagemProduto" src="{{ asset('assets/imagensProdutos/Redmi Note 8.jpeg') }}" alt="Foto do Produto">
+                {% endif %}
                 <div class="card-body">
                     <p class="card-text ms-2">{{produto.nome}}</p>
                     <p class="card-text ms-2">Valor: R${{produto.preco}}</p>
                     <div class="d-flex justify-content-center align-items-center">
                         <div class="btn-group">
-                            <a href="/realizarPedido/{{produto.id}}" type="button" class="btn btn-sm btn-success">
-                                <i class="bi bi-whatsapp"></i>
-                                Entre em contato conosco
+                            {% if isAdministrador() == false %}
+                            <a href="/confirmarPedido/{{produto.id}}" type="button" class="btn btn-sm btn-success me-1">
+                                <i class="bi bi-cart"></i>
+                                Comprar
+                            </a>
+                            {% endif %}
+                            <a href="/visualizarProduto/{{produto.id}}" type="button" class="btn btn-sm btn-primary">
+                                <i class="bi bi-eye-fill"></i>
+                                Detalhes
                             </a>
                         </div>
                     </div>

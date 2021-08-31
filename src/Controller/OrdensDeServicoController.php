@@ -219,10 +219,11 @@ class OrdensDeServicoController extends AbstractController
     public function cadastrarOS()
     {
         $ordem = [
-            'nome' => filter_var($_POST['nomePedido'], FILTER_SANITIZE_STRING),
-            'marca' => filter_var($_POST['marcaPedido'], FILTER_SANITIZE_STRING),
-            'preco' => str_replace(',', '.', filter_var($_POST['valorPedido'], FILTER_SANITIZE_STRING)),
-            'qnt_estoque' => filter_var($_POST['quantidadePedido'], FILTER_SANITIZE_NUMBER_INT),
+            'id_cliente' => filter_var($_POST['id_cliente'], FILTER_SANITIZE_NUMBER_INT),
+            'modelo_aparelho' => filter_var($_POST['modelo_aparelho'], FILTER_SANITIZE_STRING),
+            'problema_identificado' => filter_var($_POST['problema_identificado'], FILTER_SANITIZE_STRING),
+            'status_servico' => str_replace(',', '.', filter_var($_POST['status_servico'], FILTER_SANITIZE_STRING)),
+            'orcamento_inicial' => filter_var($_POST['orcamento_inicial'], FILTER_SANITIZE_STRING),
         ];
 
         $foiInserido = $this->ordensDeServicoModel->insertOS($ordem);
@@ -231,19 +232,19 @@ class OrdensDeServicoController extends AbstractController
 
             $_SESSION['message'] = [
                 0 => 'success',
-                1 => "Pedido cadastrado com sucesso!",
+                1 => "OS cadastrada com sucesso!",
             ];
 
-            return $this->redirect("/gerenciarPedidos");
+            return $this->redirect("/gerenciarOrdens");
 
         } else {
 
             $_SESSION['message'] = [
                 0 => 'error',
-                1 => "Erro ao cadastrar o pedido!",
+                1 => "Erro ao cadastrar a OS!",
             ];
 
-            return $this->redirect("/gerenciarPedidos");
+            return $this->redirect("/gerenciarOrdens");
         }
     }
 

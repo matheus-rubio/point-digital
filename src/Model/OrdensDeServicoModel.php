@@ -84,9 +84,8 @@ class OrdensDeServicoModel extends Model
     {
         try {
             $sql = "INSERT INTO public.tb_ordens_de_servico
-                    (id_cliente, id_produto, data_pedido, valor_total, status)
-                    VALUES(:id_cliente, :id_produto, :data_pedido, :valor_total, :status);
-            ";
+                    (id_cliente, data_inicio, modelo_aparelho, status_servico, problema_identificado, orcamento_inicial)
+                    VALUES(:id_cliente, now(), :modelo_aparelho, :status_servico, :problema_identificado, :orcamento_inicial);";
             $insert = $this->pdo->prepare($sql);
             foreach ($ordem as $key => $value) {
                 $insert->bindValue(":{$key}", $value);

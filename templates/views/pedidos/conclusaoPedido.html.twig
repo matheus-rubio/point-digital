@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<style>
+    .example-wrapper {
+        margin: 1em auto;
+        max-width: 800px;
+        width: 95%;
+        font: 18px/1.5 sans-serif;
+    }
+
+    .example-wrapper code {
+        background: #F5F5F5;
+        padding: 2px 6px;
+    }
+
+    .imagemProduto {
+        width: 250px;
+        height: 280px;
+    }
+
+    .card {
+        width: 260px;
+    }
+</style>
+
+<div class="example-wrapper">
+    {% if pedidoEfetuado == true %}
+    <h1 class="mt-5" style="display: flex; justify-content: center;">Seu pedido foi efetuado com sucesso! <i style="color: green;" class="bi bi-check-square-fill ms-2"></i></h1>
+
+    <div style="text-align: center; justify-content: center; display: flex;">
+        <h4>
+            <br>
+            Este é o código de barras do boleto para pagamento:
+            <br>
+            <br>
+            <span>{{pedido.codigo_de_barras}}</span>
+            <br>
+            <br>
+            A Data de vencimento é de dois dias após a geração do boleto, caso ultrapasse o vencimento, favor desconsiderar boleto pois pedido é automaticamente cancelado.
+            <div>
+                <a class="btn btn-md btn-primary mt-5" href="/home">
+                    <i class="bi bi-arrow-left"></i>
+                    Voltar para a página principal
+                </a>
+            </div>
+        </h4>
+    </div>
+    {% else %}
+    <h1 style="display: flex; justify-content: center;">Erro ao efetuar pedido! <i style="color: rgb(211, 0, 0);" class="bi bi-x-square-fill mx-2"></i></h1>
+    <div style="text-align: center; justify-content: center; display: flex;">
+        <h4>
+            <br>
+            Tente novamente mais tarde.
+            <br>
+            <br>
+            <div>
+                <a class="btn btn-md btn-primary" href="/home">
+                    <i class="bi bi-arrow-left"></i>
+                    Voltar para a página principal
+                </a>
+            </div>
+        </h4>
+    </div>
+
+    {% endif %}
+</div>
+{% endblock %}

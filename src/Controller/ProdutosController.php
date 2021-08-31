@@ -83,8 +83,6 @@ class ProdutosController extends AbstractController
     public function visualizarProduto(int $idProduto)
     {
         $produto = $this->produtosModel->getProdutoById($idProduto);
-        dump($produto);
-        dump(explode('.', $produto['preco']));
         
         // SE FOR NÚMERO INTEIRO ADICIONA DOIS ZEROS DEPOIS DA VIRGULA
         if(sizeof(explode('.', $produto['preco'])) == 1){

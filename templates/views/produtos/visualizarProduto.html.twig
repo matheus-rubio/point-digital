@@ -6,6 +6,11 @@
     float: right;
 }
 
+.imagemProduto {
+    width: 600px;
+    height: 400px;
+}
+
 </style>
 
 
@@ -13,19 +18,36 @@
     <br>
     <div class="card">
         <div id="detalhesProduto" class="col-md-12">
-            <img class="col-md-6" src="{{ asset('assets/imagensProdutos/k10.jpeg') }}" alt="">
+                {% if produto.nome == 'J7 PRIME' %}
+                <img class="imagemProduto" src="{{ asset('assets/imagensProdutos/J7 PRIME.jpeg') }}" alt="Foto do Produto">
+                {% endif %}
+                {% if produto.nome == 'LG K10' %}
+                <img class="imagemProduto" src="{{ asset('assets/imagensProdutos/LG K10.jpeg') }}" alt="Foto do Produto">
+                {% endif %}
+                {% if produto.nome == 'Redmi Note 8' %}
+                <img class="imagemProduto" src="{{ asset('assets/imagensProdutos/Redmi Note 8.jpeg') }}" alt="Foto do Produto">
+                {% endif %}
             <ul style="margin: 20px 40px 0 0;" class="list-group float-end col-md-5">
-                <li class="list-group-item active" aria-current="true">{{produto.nome}}</li>
-                <li class="list-group-item">Marca: {{produto.marca}}</li>
-                <li class="list-group-item">Valor: R${{produto.preco}}</li>
-                <br>
-                <div class="d-flex justify-content-center">
-                    
-                    <a class="btn btn-sm btn-success col-md-5 ">
-                        <i class="bi bi-cart4"></i> 
-                        COMPRAR 
+                <div class="d-flex justify-content-end">
+                    <a href="/home" class="btn btn-sm btn-primary mb-2">
+                        <i class="bi bi-arrow-left"></i> 
+                        Voltar 
                     </a>
                 </div>
+                <li class="list-group-item active" aria-current="true">{{produto.nome}}</li>
+                <li class="list-group-item">Marca: {{produto.marca}}</li>
+                <li class="list-group-item">Valor: R${{produto.preco}} à vista no boleto</li>
+                <li class="list-group-item">Descricao: {{produto.descricao}}</li>
+                <br>
+                <div class="d-flex justify-content-center">
+                    {% if isAdministrador() == false %}
+                    <a href="/confirmarPedido/{{produto.id}}" class="btn btn-lg btn-success col-md-8 ">
+                        <i class="bi bi-cart4"></i> 
+                        Comprar 
+                    </a>
+                    {% endif %}
+                </div>
+                
                 
         </div>
     </div>
